@@ -103,9 +103,11 @@ def MobileNetV2(input_shape, num_classes=1000):
     x = inverted_residual_block(x, 6, 320, 1, 1)
 
     x = tf.keras.layers.Conv2D(filters=1280, kernel_size=(1, 1), strides=(1, 1))(x)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.ReLU(6)(x)
     x = tf.keras.layers.GlobalAveragePooling2D()(x)
+    x = tf.keras.layers.Dropout(0.3)(x)
     output_ = tf.keras.layers.Dense(num_classes, activation='softmax')(x)
 
     model = tf.keras.Model(input_, output_)
     return model
-
