@@ -63,7 +63,7 @@ def bottleneck_block(x, t, c, s):
     inp_block = depthwise_layer(inp_block, s)
     inp_block = projection_layer(inp_block, c_o)
     if x.shape == inp_block.shape:
-        inp_block = tf.keras.layers.add([x + inp_block])
+        inp_block = tf.keras.layers.add([x, inp_block])
     return inp_block
 
 
